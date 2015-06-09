@@ -1,0 +1,7 @@
+noscript {
+  display: block;
+  background-color: yellow;
+  text-align: center;
+  width: 50%;
+  margin: 10px auto;
+}
