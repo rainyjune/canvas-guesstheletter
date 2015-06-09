@@ -51,10 +51,15 @@ function canvasApp() {
     ctx.strokeStyle = "#000000";
     ctx.strokeRect(5, 5, canvas.width - 10, canvas.height - 10);
 
+    // Date
+    ctx.fillStyle = "gray";
+    ctx.font = "12px Sans-Serif";
+    ctx.fillText((new Date()).toLocaleString(), 200, 25);
+
     // Message
     ctx.fillStyle = "red";
     ctx.font = "14px Sans-Serif";
-    ctx.fillText(t("message"), 100, 50);
+    ctx.fillText(t("message"), 100, 45);
 
     // Guesses
     ctx.fillStyle = "green";
@@ -64,17 +69,17 @@ function canvasApp() {
     // Higher Or Lower 
     ctx.fillStyle = "black";
     ctx.font = "16px Sans-Serif";
-    ctx.fillText(t("hint") + higherOrLower, 170, 170);
+    ctx.fillText(t("hint") + higherOrLower, 150, 130);
 
     // Letters Guessed
     ctx.fillStyle = "red";
     ctx.font = "16px Sans-Serif";
-    ctx.fillText(t("guessed") + guessedChars.join(','), 10, 370);
+    ctx.fillText(t("guessed") + guessedChars.join(','), 10, 250);
     
     if (gameOver) {
       ctx.fillStyle = "red";
       ctx.font = "40px Sans-Serif";
-      ctx.fillText(t("gameover"), 150, 180);
+      ctx.fillText(t("gameover"), 150, 190);
     }
   }
 
