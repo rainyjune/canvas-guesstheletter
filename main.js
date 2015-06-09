@@ -132,10 +132,11 @@ function canvasApp() {
 
     exportBtn.addEventListener("click", function(event){
       debugger; 
+      var ts = (new Date()).valueOf();
+      downloadWithName(canvas.toDataURL(), "canvas" + ts + ".png");
     }, false);
 
     replayBtn.addEventListener("click", function(event) {
-      debugger;
       initGame();
     }, false);
   }
@@ -148,6 +149,16 @@ function canvasApp() {
 
   function t(text) {
     return typeof config["text"][text] !== "undefined" ? config["text"][text] : "";
+  }
+
+  function downloadWithName(uri, name) {
+    var link = document.createElement("a");
+    link.download = name;
+    link.href = uri;
+
+    var evt = document.createEvent("MouseEvents");
+    evt.initMouseEvent("click", true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
+    link.dispatchEvent(evt);
   }
 
 }
