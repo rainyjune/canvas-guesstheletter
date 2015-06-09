@@ -13,7 +13,9 @@ var config = {
     "inValidChar": "That is not a letter",
     "higher": "Higher",
     "lower": "Lower",
-    "gameover": "You got it!"
+    "gameover": "You got it!",
+    "export": "Export Canvas Image",
+    "replay": "Play Again"
   }
 };
 
@@ -29,18 +31,40 @@ function initPage() {
 function canvasApp() {
   var canvas = document.getElementById("theCanvas"),
       ctx = canvas.getContext("2d"),
-      gameOver = false,
-      higherOrLower = "",
-      guessedCount = 0,
-      guessedChars = [],
+      gameOver,
+      higherOrLower,
+      guessedCount,
+      guessedChars,
       allowedChars = range("a", "z"),
       userInputChar,
       correctCharIndex,
-      correctChar = getRandomChar();
+      correctChar;
+
+  var exportBtn = document.getElementById("exportBtn"),
+      replayBtn = document.getElementById("replayBtn");
+        
+
+  exportBtn.innerHTML = t("export");
+  replayBtn.innerHTML = t("replay");
 
   addEventListeners();
 
-  drawScreen();
+  initGame();
+
+
+  function initGame() {
+    gameOver = false;
+    higherOrLower = "";
+    guessedCount = 0;
+    guessedChars = [];
+    userInputChar = null;
+    correctCharIndex = null;
+    correctChar = getRandomChar();
+    drawScreen();
+    log("The correct char:", correctChar);
+  }
+
+
 
   function drawScreen() {
     // Background color
@@ -104,6 +128,15 @@ function canvasApp() {
         }
       }
       drawScreen();
+    }, false);
+
+    exportBtn.addEventListener("click", function(event){
+      debugger; 
+    }, false);
+
+    replayBtn.addEventListener("click", function(event) {
+      debugger;
+      initGame();
     }, false);
   }
 
