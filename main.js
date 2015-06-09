@@ -9,7 +9,11 @@ var config = {
     "guess": "Guesses:",
     "hint": "Higher Or Lower:",
     "guessed": "Letters Guessed:",
-    "export": "Export Canvas Image"
+    "export": "Export Canvas Image",
+    "inValidChar": "That is not a letter",
+    "higher": "Higher",
+    "lower": "Lower",
+    "gameover": "You got it!"
   }
 };
 
@@ -25,17 +29,20 @@ function initPage() {
 function canvasApp() {
   var canvas = document.getElementById("theCanvas"),
       ctx = canvas.getContext("2d"),
+      gameOver = false,
+      higherOrLower = "",
       guessedCount = 0,
       guessedChars = [],
       allowedChars = range("a", "z"),
       userInputChar,
+      correctCharIndex,
       correctChar = getRandomChar();
 
   addEventListeners();
 
-  initGame();
+  drawScreen();
 
-  function initGame() {
+  function drawScreen() {
     // Background color
     ctx.fillStyle = "rgb(255, 255, 170)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -57,19 +64,47 @@ function canvasApp() {
     // Higher Or Lower 
     ctx.fillStyle = "black";
     ctx.font = "16px Sans-Serif";
-    ctx.fillText(t("hint"), 170, 170);
+    ctx.fillText(t("hint") + higherOrLower, 170, 170);
 
     // Letters Guessed
     ctx.fillStyle = "red";
     ctx.font = "16px Sans-Serif";
-    ctx.fillText(t("guessed"), 10, 370);
+    ctx.fillText(t("guessed") + guessedChars.join(','), 10, 370);
+    
+    if (gameOver) {
+      ctx.fillStyle = "red";
+      ctx.font = "40px Sans-Serif";
+      ctx.fillText(t("gameover"), 150, 180);
+    }
   }
 
   function addEventListeners() {
+    document.addEventListener("keydown", function(event) {
+      if (gameOver) return;
+      var userInputChar = String.fromCharCode(event.keyCode).toLowerCase();
+      guessedCount++;
+      guessedChars.push(userInputChar);
+      
+      if (userInputChar === correctChar) {
+        gameOver = true;
+      } else {
+        // Is it a allowed char ?
+        var letterIndex = allowedChars.indexOf(userInputChar);
+        if (letterIndex === -1) {
+          higherOrLower = t("inValidChar");
+        } else if (letterIndex > correctCharIndex) {
+          higherOrLower = t("lower");
+        } else {
+          higherOrLower = t("higher");
+        }
+      }
+      drawScreen();
+    }, false);
   }
 
   function getRandomChar() {
     var random = rand(0, allowedChars.length - 1);
+    correctCharIndex = random;
     return allowedChars[random];
   }
 
