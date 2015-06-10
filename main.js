@@ -180,38 +180,10 @@ function log() {
   }
 }
 
-//http://phpjs.org/functions/range/
-function range(low, high, step) {
-
-  var matrix = [];
-  var inival, endval, plus;
-  var walker = step || 1;
-  var chars = false;
-
-  if (!isNaN(low) && !isNaN(high)) {
-    inival = low;
-    endval = high;
-  } else if (isNaN(low) && isNaN(high)) {
-    chars = true;
-    inival = low.charCodeAt(0);
-    endval = high.charCodeAt(0);
-  } else {
-    inival = (isNaN(low) ? 0 : low);
-    endval = (isNaN(high) ? 0 : high);
+function range(low, high) {
+  var result = [];
+  for(var i = low.charCodeAt(0); i <= high.charCodeAt(0); i++) {
+    result.push(String.fromCharCode(i));
   }
-
-  plus = ((inival > endval) ? false : true);
-  if (plus) {
-    while (inival <= endval) {
-      matrix.push(((chars) ? String.fromCharCode(inival) : inival));
-      inival += walker;
-    }
-  } else {
-    while (inival >= endval) {
-      matrix.push(((chars) ? String.fromCharCode(inival) : inival));
-      inival -= walker;
-    }
-  }
-
-  return matrix;
+  return result;
 }
