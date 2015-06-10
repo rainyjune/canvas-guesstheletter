@@ -25,6 +25,10 @@ function initPage() {
     alert("Sorry, your browser does not support HTML5 Canvas");
     return false;
   }
+  if (!canvasTextSupport()) {
+    alert("Sorry, your browser does not support Canvas Text");
+    return false;
+  }
   canvasApp();
 }
 
@@ -169,6 +173,11 @@ function canvasSupport() {
   var canvas = document.createElement("canvas");
   return !!(canvas.getContext && canvas.getContext("2d"));
 } 
+
+function canvasTextSupport() {
+  var elem = document.createElement("canvas");
+  return !!(elem.getContext && elem.getContext("2d") && typeof elem.getContext("2d").fillText === "function");
+}
   
 // A simple debugging tool.
 function log() {
