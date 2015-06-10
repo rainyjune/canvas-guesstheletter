@@ -5,3 +5,7 @@ noscript {
   width: 50%;
   margin: 10px auto;
 }
+
+#controls {
+  display: none;
+}

@@ -46,6 +46,7 @@ function canvasApp() {
 
   exportBtn.innerHTML = t("export");
   replayBtn.innerHTML = t("replay");
+  document.getElementById("controls").style.display = "block";
 
   addEventListeners();
 
